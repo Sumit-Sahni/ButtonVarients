@@ -1,30 +1,23 @@
-import React from 'react';
-import { Meta, StoryObj } from '@storybook/react';
-import Button from '../components/Button';
-import { Shield} from 'lucide-react';
-
-
+import type { Meta, StoryObj } from '@storybook/react';
+import { HomeIcon } from 'lucide-react'; // Assuming you're using this icon
+import Button from "../components/Button"; // Make sure this path is correct
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
   argTypes: {
     variant: {
-      control: {
-        type: 'select',
-        options: ['first', 'second', 'third'],
-      },
+      control: 'select',
+      options: ['primary', 'secondary', 'third'],
+    },
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+    },
+    Icon: {
+      control: false, // We don't want a UI control for icons in this case
     },
     onClick: { action: 'clicked' },
-    icon: {
-        control: false, 
-      },
-      width: {
-        control: {
-          type: 'text', 
-        },
-        defaultValue: '200', 
-      }, 
   },
 };
 
@@ -32,29 +25,29 @@ export default meta;
 
 type Story = StoryObj<typeof Button>;
 
-export const First: Story = {
+export const Primary: Story = {
   args: {
-    variant: 'first',
-    children: 'First Button',
-    icon:Shield,
-    width:200
+    variant: 'primary',
+    size: 'md',
+    children: 'Primary Button',
+    Icon: HomeIcon, // Add your desired icon
   },
 };
 
-export const Second: Story = {
+export const Secondary: Story = {
   args: {
-    variant: 'second',
-    children: 'Second Button',
-    icon: Shield,
-    width:200
+    variant: 'secondary',
+    size: 'md',
+    children: 'Secondary Button',
+    Icon: HomeIcon, // Add your desired icon
   },
 };
 
 export const Third: Story = {
   args: {
     variant: 'third',
+    size: 'md',
     children: 'Third Button',
-    icon:Shield,
-    width:200
+    Icon: HomeIcon, // Add your desired icon
   },
 };

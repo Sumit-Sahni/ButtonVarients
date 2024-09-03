@@ -1,21 +1,31 @@
 "use client";
 import Button from "@/components/Button";
-import { Shield } from 'lucide-react';
+import { HomeIcon } from "lucide-react";
 
 export default function Home() {
+  const handleClick = () => {
+    console.log("Button clicked!");
+  };
   return (
     <>
-      <div className="grid  grid-rows-4 gap-4 p-4">
-        <Button width={200} variant="first"  icon={Shield} onClick={() => console.log("First!")}>
-         Button
+      <main className="p-16 flex flex-col lg:flex-row lg:justify-around mx-auto w-9/12 max-h-screen">
+        <Button onClick={handleClick} variant="primary" Icon={HomeIcon}>
+          Button
         </Button>
-        <Button width={200} variant="second" icon={Shield}  onClick={() => console.log("Second!")}>
-           Button
+
+        <Button
+          onClick={handleClick}
+          variant="secondary"
+          Icon={HomeIcon}
+          className=" lg:my-none"
+        >
+          Button
         </Button>
-        <Button width={200} variant="third"  icon={Shield} onClick={() => console.log("Third!")}>
-           Button
+
+        <Button onClick={handleClick} variant="third" Icon={HomeIcon}>
+          Button
         </Button>
-      </div>
+      </main>
     </>
   );
 }

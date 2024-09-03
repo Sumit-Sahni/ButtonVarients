@@ -1,43 +1,56 @@
-import React from "react";
+import React, { ButtonHTMLAttributes, FC, ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
+import { cva, VariantProps } from "class-variance-authority";
 
-type ButtonProps = {
-  variant?: "first" | "second" | "third";
-  children: React.ReactNode;
-  onClick?: () => void;
-  icon?: LucideIcon;
-  width?: number
-};
+const buttonVariants = cva("px-12 py-4 w-auto flex justify-center item-center", {
+  variants: {
+    variant: {
+      primary: "bg-blue-500 rounded-2xl text-white",
+      secondary: "bg-red-600 rounded-full text-white",
+      third: " text-red-600 bg-white ",
+    },
+
+    size: {
+      sm: "text-sm px-1 py-0",
+      md: "text-md px-12 py-4",
+      lg: "text-xl px-4 py-2",
+    },
+    animation: {
+      none: "",
+      active: "active:scale-95",
+    },
+  },
+  defaultVariants: {
+    variant: "primary",
+    size: "md",
+  },
+})
+
+interface ButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  children: ReactNode;
+  Icon?: LucideIcon;
+  onClick: () => void;
+}
 
 const Button: React.FC<ButtonProps> = ({
-  variant = "first",
   children,
+  className,
+  animation,
+  variant,
+  size,
+  Icon,
   onClick,
-  icon: Icon,
-  width,
+  ...props
 }) => {
-  let className = "";
-
-  switch (variant) {
-    case "first":
-      className = "bg-blue-500 text-white hover:bg-blue-600";
-      break;
-    case "second":
-      className = "bg-gray-500 text-white hover:bg-gray-600 ";
-      break;
-    case "third":
-      className = "bg-red-500 text-black border hover:bg-gray-900";
-      break;
-  }
-
   return (
-    <button 
-      style={{width}}
-
-      className={`p-4 rounded-full shadow-lg flex justify-center ${className}`}
-      onClick={onClick}
+    <button
+    onClick={onClick}
+      className={buttonVariants({ variant, size, className, animation })}
+      {...props}
     >
-      {Icon && <Icon className=" inline-block mx-2" />}
+      {Icon && <Icon size={20} className="mx-2"/>}
       {children}
     </button>
   );
